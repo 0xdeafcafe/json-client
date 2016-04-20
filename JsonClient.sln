@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A7222A26-3181-499D-8A24-2B1CBA69CF9D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B2110CE2-0A8E-4E6B-95D4-9E2A4A89F0E7}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "JsonClient", "src\JsonClient\JsonClient.xproj", "{AC73B60F-6DCC-4FD9-8902-ACF271621C11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC73B60F-6DCC-4FD9-8902-ACF271621C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC73B60F-6DCC-4FD9-8902-ACF271621C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC73B60F-6DCC-4FD9-8902-ACF271621C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC73B60F-6DCC-4FD9-8902-ACF271621C11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AC73B60F-6DCC-4FD9-8902-ACF271621C11} = {A7222A26-3181-499D-8A24-2B1CBA69CF9D}
+	EndGlobalSection
+EndGlobal
