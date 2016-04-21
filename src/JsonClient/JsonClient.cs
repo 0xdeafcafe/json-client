@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using JsonClient.Models;
+using Newtonsoft.Json;
+
+namespace JsonClient
+{
+	public class JsonClient
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		public Options Options { get; private set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Uri BaseUri { get; private set; }
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="baseUri"></param>
+		/// <param name="options"></param>
+		public JsonClient(Uri baseUri = null, Options options = null)
+		{
+			BaseUri = baseUri;
+			options = options ?? new Options();
+			options.Headers = options.Headers ?? new Dictionary<string, string>();
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="method"></param>
+		/// <param name="path"></param>
+		/// <param name="params"></param>
+		/// <param name="body"></param>
+		/// <param name="options"></param>
+		public async Task<TResponse> MakeRequestAsync<TResponse, TRequest, TError>(string method, string path = null, 
+			Dictionary<string, string> @params = null, TRequest body = null, Options options = null)
+			where TRequest : class, new()
+			where TResponse : class, new()
+			where TError : class, new()
+		{
+			if (method == null)
+				throw new ArgumentNullException(nameof(method));
+			if (path == null && BaseUri == null)
+				throw new ArgumentNullException(nameof(path), $"The {path} argument can not be null if the {nameof(BaseUri)} options is null.");
+
+			// Merge Headers
+			foreach (var header in Options.Headers)
+			{
+				if (!options.Headers.ContainsKey(header.Value))
+					options.Headers.Add(header.Key, header.Value);
+			}
+
+			using (var httpClient = new HttpClient())
+			{
+				// Set base address if appropriate 
+				if (BaseUri != null)
+					httpClient.BaseAddress = BaseUri;
+
+				// Set Headers
+				foreach(var header in options.Headers)
+					httpClient.DefaultRequestHeaders.Add(header.Key, header.Value);
+
+				// Check if we're sending a body
+				StringContent bodyContent = body == null 
+					? null 
+					: new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
+
+				// create request
+				var request = new HttpRequestMessage(new HttpMethod(method), new Uri(path)) { Content = bodyContent };
+
+				// execute request and get response
+				var response = await httpClient.SendAsync(request);
+
+				// check response status
+				if (response.IsSuccessStatusCode)
+				{
+					// check if there is response we can try and parse into json)
+					var responseString = await response.Content.ReadAsStringAsync();
+					if (responseString == null || responseString.Length == 0)
+						return null;
+
+					return JsonConvert.DeserializeObject<TResponse>(responseString);
+				}
+
+				// throw an exception containing http data, and a posible json body
+
+			}
+
+			return;
+		}
+	}
+}
