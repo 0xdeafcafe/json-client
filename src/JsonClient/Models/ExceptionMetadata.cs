@@ -1,10 +1,16 @@
-﻿namespace JsonClient.Models
-{
-	public class ExceptionMetadata
-	{
-		internal ExceptionMetadata()
-		{
+﻿using System;
+using System.Net;
 
-		}
+namespace JsonClient.Models
+{
+	public class ExceptionMetadata<TError>
+	{
+		public HttpStatusCode Code { get; internal set; }
+
+		public string Method { get; internal set; }
+
+		public Uri Uri { get; internal set; }
+
+		public TError Data { get; internal set; }
 	}
 }

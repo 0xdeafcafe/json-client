@@ -1,10 +1,46 @@
 ﻿{
-	"version": "1.0.0-*",
-	"description": "JsonClient Class Library",
-	"authors": [ "alexr" ],
-	"tags": [ "" ],
-	"projectUrl": "",
-	"licenseUrl": "",
+	"version": "0.9.4-beta-*",
+	"title": "Luno Client",
+	"description": "A lightweight api wrapper for HttpClient to make it all about json.",
+	"summary": "A lightweight api wrapper for HttpClient to make it all about json.",
+	"authors": [
+		"Alex Forbes-Reed"
+	],
+	"tags": [
+		"json",
+		"http",
+		"http client",
+		"lightweight"
+	],
+	"language": "en-gb",
+	"copyright": "Alex Forbes-Reed 2016",
+	"projectUrl": "https://github.com/0xdeafcafe/json-client",
+	"licenseUrl": "https://github.com/0xdeafcafe/json-client/blob/master/LICENSE",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/0xdeafcafe/json-client"
+	},
+	"tooling": {
+		"defaultNamespace": "JsonClient"
+	},
+
+	"configurations": {
+		"Debug": {
+			"compilationOptions": {
+				"define": [ "DEBUG", "TRACE" ]
+			}
+		},
+		"Release": {
+			"compilationOptions": {
+				"define": [ "RELEASE", "TRACE" ],
+				"optimize": true
+			}
+		}
+	},
+	"compilationOptions": {
+		"languageVersion": "csharp6",
+		"warningsAsErrors": true
+	},
 
 	"dependencies": {
 		"System.Net.Http": "4.0.1-beta-23516",

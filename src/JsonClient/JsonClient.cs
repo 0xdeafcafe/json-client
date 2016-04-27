@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using JsonClient.Exceptions;
+using JsonClient.Extensions;
 using JsonClient.Models;
 using Newtonsoft.Json;
 
@@ -28,8 +30,7 @@ namespace JsonClient
 		public JsonClient(Uri baseUri = null, Options options = null)
 		{
 			BaseUri = baseUri;
-			options = options ?? new Options();
-			options.Headers = options.Headers ?? new Dictionary<string, string>();
+			Options = options ?? new Options();
 		}
 
 		/// <summary>
@@ -40,7 +41,7 @@ namespace JsonClient
 		/// <param name="params"></param>
 		/// <param name="body"></param>
 		/// <param name="options"></param>
-		public async Task<TResponse> MakeRequestAsync<TResponse, TRequest, TError>(string method, string path = null, 
+		public async Task<TResponse> RequestAsync<TResponse, TRequest, TError>(string method, string path = null, 
 			Dictionary<string, string> @params = null, TRequest body = null, Options options = null)
 			where TRequest : class, new()
 			where TResponse : class, new()
@@ -48,8 +49,13 @@ namespace JsonClient
 		{
 			if (method == null)
 				throw new ArgumentNullException(nameof(method));
+
 			if (path == null && BaseUri == null)
 				throw new ArgumentNullException(nameof(path), $"The {path} argument can not be null if the {nameof(BaseUri)} options is null.");
+
+			// If the user didn't specify any options params, initalize them
+			@params = @params ?? new Dictionary<string, string>();
+			options = options ?? new Options();
 
 			// Merge Headers
 			foreach (var header in Options.Headers)
@@ -60,9 +66,10 @@ namespace JsonClient
 
 			using (var httpClient = new HttpClient())
 			{
-				// Set base address if appropriate 
-				if (BaseUri != null)
-					httpClient.BaseAddress = BaseUri;
+				// Set base address if appropriate
+				Uri requestUri = BaseUri == null
+					? new Uri(path)
+					: BaseUri.Append(path);
 
 				// Set Headers
 				foreach(var header in options.Headers)
@@ -73,16 +80,16 @@ namespace JsonClient
 					? null 
 					: new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
 
-				// create request
-				var request = new HttpRequestMessage(new HttpMethod(method), new Uri(path)) { Content = bodyContent };
+				// Create request
+				var request = new HttpRequestMessage(new HttpMethod(method), requestUri) { Content = bodyContent };
 
-				// execute request and get response
+				// Execute request and get response
 				var response = await httpClient.SendAsync(request);
 
-				// check response status
+				// Check response status
 				if (response.IsSuccessStatusCode)
 				{
-					// check if there is response we can try and parse into json)
+					// Check if there is response we can try and parse into json)
 					var responseString = await response.Content.ReadAsStringAsync();
 					if (responseString == null || responseString.Length == 0)
 						return null;
@@ -90,11 +97,31 @@ namespace JsonClient
 					return JsonConvert.DeserializeObject<TResponse>(responseString);
 				}
 
-				// throw an exception containing http data, and a posible json body
+				// Attempt to parse json body
+				TError jsonErrorBody = null;
+				try
+				{
+					var responseString = await response.Content.ReadAsStringAsync();
+					if (responseString != null && responseString.Length == 0)
+						jsonErrorBody = JsonConvert.DeserializeObject<TError>(responseString);
+				}
+				catch (JsonReaderException)
+				{ }
 
+				// Throw time
+				throw new JsonClientException<TError>("An exception occured while executing the http request.")
+				{
+					Code = response.ReasonPhrase,
+					StatusCode = response.StatusCode,
+					ExceptionMetadata = new ExceptionMetadata<TError>
+					{
+						Code = response.StatusCode,
+						Method = request.Method.ToString().ToUpperInvariant(),
+						Uri = request.RequestUri,
+						Data = jsonErrorBody
+					}
+				};
 			}
-
-			return;
 		}
 	}
 }
