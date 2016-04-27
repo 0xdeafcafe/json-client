@@ -1,6 +1,6 @@
 ﻿{
 	"version": "0.9.4-beta-*",
-	"title": "Luno Client",
+	"title": "Json Client",
 	"description": "A lightweight api wrapper for HttpClient to make it all about json.",
 	"summary": "A lightweight api wrapper for HttpClient to make it all about json.",
 	"authors": [
