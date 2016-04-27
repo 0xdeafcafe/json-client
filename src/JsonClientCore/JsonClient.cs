@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using JsonClient.Exceptions;
-using JsonClient.Extensions;
-using JsonClient.Models;
+using JsonClientCore.Exceptions;
+using JsonClientCore.Extensions;
+using JsonClientCore.Models;
 using Newtonsoft.Json;
 
-namespace JsonClient
+namespace JsonClientCore
 {
 	public class JsonClient
 	{

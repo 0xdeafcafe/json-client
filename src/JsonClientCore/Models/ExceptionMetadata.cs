@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace JsonClient.Models
+namespace JsonClientCore.Models
 {
 	public class ExceptionMetadata<TError>
 	{

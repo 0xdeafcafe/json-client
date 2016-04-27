@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
-using JsonClient.Models;
+using JsonClientCore.Models;
 
-namespace JsonClient.Exceptions
+namespace JsonClientCore.Exceptions
 {
 	public class JsonClientException<TError> : Exception
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JsonClient.Test.Helpers
+namespace JsonClientCore.Test.Helpers
 {
 	public static class EnvironmentVariableHelpers
 	{

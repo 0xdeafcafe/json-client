@@ -1,6 +1,6 @@
 ﻿{
-	"version": "0.9.4-beta-*",
-	"title": "Json Client",
+	"version": "1.0.0",
+	"title": "Json Client Core",
 	"description": "A lightweight api wrapper for HttpClient to make it all about json.",
 	"summary": "A lightweight api wrapper for HttpClient to make it all about json.",
 	"authors": [
@@ -21,7 +21,7 @@
 		"url": "https://github.com/0xdeafcafe/json-client"
 	},
 	"tooling": {
-		"defaultNamespace": "JsonClient"
+		"defaultNamespace": "JsonClientCore"
 	},
 
 	"configurations": {

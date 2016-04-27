@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace JsonClient.Extensions
+namespace JsonClientCore.Extensions
 {
 	public static class UriExtensions
 	{

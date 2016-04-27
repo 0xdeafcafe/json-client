@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JsonClient.Models;
-using JsonClient.Test.Helpers;
+using JsonClientCore.Models;
+using JsonClientCore.Test.Helpers;
 using Xunit;
 
-namespace JsonClient.Test
+namespace JsonClientCore.Test
 {
 	public class GetTests
 	{

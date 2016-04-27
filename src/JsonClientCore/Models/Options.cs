@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace JsonClient.Models
+namespace JsonClientCore.Models
 {
 	public class Options
 	{
