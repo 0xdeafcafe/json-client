@@ -33,6 +33,27 @@ namespace JsonClientCore
 			Options = options ?? new Options();
 		}
 
+		public async Task<object> RequestAsync(string method, string path = null,
+			Dictionary<string, string> @params = null, Options options = null)
+		{
+			return await RequestAsync<object, object, object>(method, path, @params, null, options);
+		}
+
+		public async Task<TResponse> RequestAsync<TResponse>(string method, string path = null,
+			Dictionary<string, string> @params = null, Options options = null)
+			where TResponse : class, new()
+		{
+			return await RequestAsync<TResponse, object, object>(method, path, @params, null, options);
+		}
+
+		public async Task<TResponse> RequestAsync<TResponse, TError>(string method, string path = null,
+			Dictionary<string, string> @params = null, Options options = null)
+			where TResponse : class, new()
+			where TError : class, new()
+		{
+			return await RequestAsync<TResponse, object, TError>(method, path, @params, null, options);
+		}
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -43,8 +64,8 @@ namespace JsonClientCore
 		/// <param name="options"></param>
 		public async Task<TResponse> RequestAsync<TResponse, TRequest, TError>(string method, string path = null, 
 			Dictionary<string, string> @params = null, TRequest body = null, Options options = null)
-			where TRequest : class, new()
 			where TResponse : class, new()
+			where TRequest : class, new()
 			where TError : class, new()
 		{
 			if (method == null)
