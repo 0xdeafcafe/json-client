@@ -123,7 +123,7 @@ namespace JsonClientCore
 				try
 				{
 					var responseString = await response.Content.ReadAsStringAsync();
-					if (responseString != null && responseString.Length == 0)
+					if (responseString != null && responseString.Length > 0)
 						jsonErrorBody = JsonConvert.DeserializeObject<TError>(responseString);
 				}
 				catch (JsonReaderException)
