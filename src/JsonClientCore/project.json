@@ -1,62 +1,42 @@
 ﻿{
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"title": "Json Client Core",
 	"description": "A lightweight api wrapper for HttpClient to make it all about json.",
-	"summary": "A lightweight api wrapper for HttpClient to make it all about json.",
-	"authors": [
-		"Alex Forbes-Reed"
-	],
-	"tags": [
-		"json",
-		"http",
-		"http client",
-		"lightweight"
-	],
 	"language": "en-gb",
 	"copyright": "Alex Forbes-Reed 2016",
-	"projectUrl": "https://github.com/0xdeafcafe/json-client",
-	"licenseUrl": "https://github.com/0xdeafcafe/json-client/blob/master/LICENSE",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/0xdeafcafe/json-client"
-	},
-	"tooling": {
-		"defaultNamespace": "JsonClientCore"
-	},
-
-	"configurations": {
-		"Debug": {
-			"compilationOptions": {
-				"define": [ "DEBUG", "TRACE" ]
-			}
+	"authors": [ "Alex Forbes-Reed" ],
+	"packOptions": {
+		"tags": [
+			"json",
+			"http",
+			"http client",
+			"lightweight"
+		],
+		"projectUrl": "https://github.com/0xdeafcafe/json-client",
+		"licenseUrl": "https://github.com/0xdeafcafe/json-client/blob/master/LICENSE",
+		"repository": {
+			"type": "git",
+			"url": "https://github.com/0xdeafcafe/json-client"
 		},
-		"Release": {
-			"compilationOptions": {
-				"define": [ "RELEASE", "TRACE" ],
-				"optimize": true
-			}
-		}
-	},
-	"compilationOptions": {
-		"languageVersion": "csharp6",
-		"warningsAsErrors": true
+		"summary": "A lightweight api wrapper for HttpClient to make it all about json.",
+		"requireLicenseAcceptance": false
 	},
 
 	"dependencies": {
-		"System.Net.Http": "4.0.1-beta-23516",
-		"Newtonsoft.Json": "7.0.1"
+		"Microsoft.NETCore.App": {
+			"type": "platform",
+			"version": "1.0.0-rc2-*"
+		},
+		"System.Net.Http": "4.0.1-rc2-*",
+		"Newtonsoft.Json": "8.0.3"
 	},
 
 	"frameworks": {
-		"net451": { },
-		"dotnet5.4": {
-			"dependencies": {
-				"Microsoft.CSharp": "4.0.1-beta-23516",
-				"System.Collections": "4.0.11-beta-23516",
-				"System.Linq": "4.0.1-beta-23516",
-				"System.Runtime": "4.0.21-beta-23516",
-				"System.Threading": "4.0.11-beta-23516"
-			}
+		"netcoreapp1.0": {
+			"imports": [
+				"dnxcore50",
+				"portable-net451+win8"
+			]
 		}
 	}
 }
