@@ -46,7 +46,7 @@ namespace JsonClientCore
 		public async Task<object> RequestAsync(string method, string path = null,
 			Dictionary<string, string> @params = null, Options options = null)
 		{
-			return await RequestAsync<object, object, object>(method, path, @params, null, options);
+			return await RequestAsync<object, object, Error>(method, path, @params, null, options);
 		}
 
 		/// <summary>
@@ -62,7 +62,7 @@ namespace JsonClientCore
 			Dictionary<string, string> @params = null, Options options = null)
 			where TResponse : class, new()
 		{
-			return await RequestAsync<TResponse, object, object>(method, path, @params, null, options);
+			return await RequestAsync<TResponse, object, Error>(method, path, @params, null, options);
 		}
 
 		/// <summary>
@@ -190,7 +190,7 @@ namespace JsonClientCore
 		public object Request(string method, string path = null,
 			Dictionary<string, string> @params = null, Options options = null)
 		{
-			return Request<object, object, object>(method, path, @params, null, options);
+			return Request<object, object, Error>(method, path, @params, null, options);
 		}
 
 		/// <summary>
@@ -206,7 +206,7 @@ namespace JsonClientCore
 			Dictionary<string, string> @params = null, Options options = null)
 			where TResponse : class, new()
 		{
-			return Request<TResponse, object, object>(method, path, @params, null, options);
+			return Request<TResponse, object, Error>(method, path, @params, null, options);
 		}
 
 		/// <summary>
