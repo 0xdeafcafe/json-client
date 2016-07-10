@@ -119,6 +119,12 @@ namespace JsonClientCore
 
 			using (var httpClient = new HttpClient())
 			{
+				// Add Params to url
+				if (@params.Any())
+					path += "?" + string.Join("&",
+									@params.Select(kvp =>
+										string.Format("{0}={1}", kvp.Key, kvp.Value)));
+
 				// Set base address if appropriate
 				Uri requestUri = BaseUri == null
 					? new Uri(path)
