@@ -1,5 +1,5 @@
 {
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"title": "Json Client Core",
 	"description": "A lightweight api wrapper for HttpClient to make it all about json.",
 	"language": "en-gb",

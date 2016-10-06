@@ -122,8 +122,8 @@ namespace JsonClientCore
 				// Add Params to url
 				if (@params.Any())
 					path += "?" + string.Join("&",
-									@params.Select(kvp =>
-										string.Format("{0}={1}", kvp.Key, kvp.Value)));
+						@params.Select(kvp =>
+							string.Format("{0}={1}", kvp.Key, kvp.Value)));
 
 				// Set base address if appropriate
 				Uri requestUri = BaseUri == null
@@ -167,8 +167,17 @@ namespace JsonClientCore
 				catch (JsonReaderException)
 				{ }
 
-				// Throw time
-				throw new JsonClientException<TError>("An exception occurred while executing the http request.")
+				Exception innerException = null;
+				try
+				{
+					response.EnsureSuccessStatusCode();
+				}
+				catch (Exception ex)
+				{
+					innerException = ex;
+				}
+				
+				throw new JsonClientException<TError>("An exception occurred while executing the http request.", innerException)
 				{
 					Code = response.ReasonPhrase,
 					StatusCode = response.StatusCode,

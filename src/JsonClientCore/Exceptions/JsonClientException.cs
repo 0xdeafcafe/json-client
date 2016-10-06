@@ -6,8 +6,8 @@ namespace JsonClientCore.Exceptions
 {
 	public class JsonClientException<TError> : Exception
 	{
-		public JsonClientException(string message)
-			: base(message)
+		public JsonClientException(string message, Exception innerException)
+			: base(message, innerException)
 		{ }
 
 		public string Code { get; internal set; }
